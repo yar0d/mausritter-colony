@@ -22,7 +22,7 @@ yarn install
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/yar0d/mausritter-colony/issues). 
+Feel free to check [issues page](https://github.com/yar0d/mausritter-colony/issues).
 
 ## Show your support
 
