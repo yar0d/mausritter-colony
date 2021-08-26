@@ -3,21 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 8802",
+    "serve:docker": "docker run -it -p 8765:8765 mausritter-sheet",
+    "serve:tauri": "tauri dev",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build:docker": "docker build --tag mausritter-sheet .",
+    "build:tauri": "vue-cli-service build && yarn tauri build",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint:fix",
+    "lint:dep": "depcruise --config .dependency-cruiser.js src",
+    "lint:depgraph": "depcruise --config .dependency-cruiser.js src --output-type dot src | dot -T svg > dependencygraph.svg",
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\"",
+    "release": "echo \"Future version will be:\" ; yarn release:local -- --dry-run | grep \"tagging release\" | cut -d\" \" -f4 | cut -c2- ",
+    "release:local": "standard-version",
+    "release:publish": "yarn release:local && git push --follow-tags",
+    "tauri": "tauri"
   },
   "dependencies": {
+    "@mdi/font": "^5.9.55",
+    "bulma": "^0.9.2",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "uuencode": "^0.0.4",
+    "uuid": "^8.3.2",
+    "vue": "^2.6.11",
+    "vue-i18n": "^8.24.4",
+    "vue-resource": "^1.5.2",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@iconify-icons/ic": "^1.1.4",
+    "@iconify-icons/mdi": "^1.1.15",
+    "@iconify-icons/openmoji": "^1.1.15",
+    "@iconify/vue": "^1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^6.0.0",
+    "readme-md-generator": "^1.0.0",
+    "sass-loader": "^10",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

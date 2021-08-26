@@ -1,0 +1,237 @@
+@charset "utf-8";
+
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 32px !default;
+$tablet: 769px !default;
+$desktop: 960px + (2 * $gap) !default;
+$widescreen: 1152px + (2 * $gap) !default;
+$fullhd: 1344px + (2 * $gap) !default;
+
+$body-size: 13px !default;
+
+// $body-size: 14px !default;
+// Set our brand colors
+// $purple: #8A4D76;
+// $pink: #FA7C91;
+// $brown: #757763;
+// $beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+$primary: yellow;
+
+// Update Bulma's global variables
+// $family-sans-serif: "Nunito", sans-serif;
+// $grey-dark: $brown;
+// $grey-light: $beige-light;
+// $primary: $purple;
+// $link: $pink;
+// $widescreen-enabled: true;
+// $fullhd-enabled: true;
+
+// Update some of Bulma's component variables
+$body-background-color: $beige-lighter;
+// $control-border-width: 2px;
+// $input-border-color: transparent;
+// $input-shadow: none;
+$card-shadow: none;
+$card-header-shadow: none;
+$card-content-padding: 0.5rem;
+
+$panel-heading-background-color: yellow !default;
+
+@import "~bulma/bulma";
+
+html, body {
+  overflow-y: auto !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.is-vertical {
+  transform-origin: center;
+  transform: translateY(100%) rotate(-90deg);
+}
+
+.vertical-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrap {
+  overflow-wrap: break-word;
+}
+
+.boxed {
+  // border: 1px solid $dark;
+  border-radius: $radius;
+  background-color: $primary;
+}
+
+.outlined {
+  border-radius: $radius;
+  border: 1px solid $dark;
+}
+
+.filler {
+  -webkit-box-flex: 1 !important;
+  -ms-flex-positive: 1 !important;
+  flex-grow: 1 !important;
+}
+
+.rotate-half {
+  transform: rotate(180deg);
+}
+
+.rotate {
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.slide-up, .slide-down {
+  overflow: hidden;
+  max-height: 0px;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.slide-down {
+  max-height: 1080px;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.rotate-once-180 {
+  transform: rotate(180deg);
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+.application-background {
+  background-image: url('../img/cartographer.jpg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+}
+
+.background-white-75 {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.background-white-50 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+hr.history-separator {
+  background-color: $primary;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.accordion {
+  border-radius: $panel-radius;
+  box-shadow: $panel-shadow;
+  font-size: $size-normal;
+  &:not(:last-child) {
+    margin-bottom: $panel-margin;
+  }
+  // Colors
+  @each $name, $components in $panel-colors {
+    $color: nth($components, 1);
+    $color-invert: nth($components, 2);
+    &.is-#{$name} {
+      .accordion-heading {
+        background-color: $color;
+        color: $color-invert;
+      }
+      .accordion-block.is-active .accordion-icon {
+        color: $color;
+      }
+    }
+  }
+}
+
+.accordion-block {
+  &:not(:last-child) {
+    border-bottom: $panel-item-border;
+  }
+}
+
+.accordion-heading {
+  background-color: $panel-heading-background-color;
+  border-radius: $panel-radius $panel-radius 0 0;
+  color: $panel-heading-color;
+  font-size: $panel-heading-size;
+  font-weight: $panel-heading-weight;
+  line-height: $panel-heading-line-height;
+  padding: $panel-heading-padding;
+}
+
+.tracker th {
+  padding: 0;
+  margin-bottom: 0;
+  text-decoration: none;
+  font-weight: normal;
+  border-bottom: 1px solid;
+}
+
+.tracker tbody:before {
+  content: " ";
+  display: block;
+  line-height: 1em;
+  color: transparent;
+  height: 4px;
+}
+
+.tracker td {
+  padding: 0;
+  margin: 0;
+}
+
+.tracker-cell {
+  background-color: white;
+  margin: 0 4px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.tracker-cell.encounter {
+  border: 3px double #888;
+}
+
+.tracker-left-title {
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  align-content: center;
+}
+
+.tracker-turn-light {
+  background-color: yellow;
+}
+
+.dice3d-canvas {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2000; /* Above all */;
+}

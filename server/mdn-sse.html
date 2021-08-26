@@ -1,0 +1,74 @@
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>Server-sent events demo</title>
+</head>
+<body>
+  <button id="close-btn">Close the connection</button>
+  <button id="roll-btn">Roll D20</button>
+  <ul>
+  </ul>
+
+<script>
+  var hr = new XMLHttpRequest();
+  var closeButton = document.getElementById('close-btn');
+  var rollButton = document.getElementById('roll-btn');
+  var evtSource = new EventSource('mdn-sse.php');
+  console.log(evtSource.withCredentials);
+  console.log(evtSource.readyState);
+  console.log(evtSource.url);
+  var eventList = document.querySelector('ul');
+
+  evtSource.onopen = function() {
+    console.log("Connection to server opened.");
+  };
+
+  evtSource.onmessage = function(e) {
+    var newElement = document.createElement("li");
+
+    newElement.textContent = "message: " + e.data;
+    eventList.appendChild(newElement);
+    const data = JSON.parse(e.data);
+    console.log('[SSE] data:', data)
+  };
+
+  evtSource.onerror = function(e) {
+    if (evtSource.readyState !== evtSource.CONNECTING) console.log("EventSource failed.", e);
+  };
+
+  closeButton.onclick = function() {
+    console.log('Connection closed');
+    evtSource.close();
+  };
+
+  rollButton.onclick = function() {
+    console.log('Roll D20');
+    const d20a = Math.round(Math.random() * 20 + 1)
+    const d20b = Math.round(Math.random() * 20 + 1)
+    const dices = [d20a, d20b]
+    const total = d20a + d20b
+    hr.open("POST", "dice-post.php", true);
+    hr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    hr.onreadystatechange = function() {
+      console.log('onreadystatechange', hr.readyState, hr.status)
+      console.log('onreadystatechange', hr.responseText)
+    }
+	  hr.send(JSON.stringify({
+      table: 'table-42',
+      player: 'Daniel',
+      sheet: 'Réginald ClairBois (scarabergère)',
+      dices: [d20a, d20b],
+      total
+    }));
+  };
+
+  evtSource.addEventListener('ping', function(e) {
+    var newElement = document.createElement('li');
+
+    var obj = JSON.parse(e.data);
+    newElement.innerHTML = 'ping at ' + obj.time;
+    eventList.appendChild(newElement);
+  }, false);
+</script>
+</body>
+</html>

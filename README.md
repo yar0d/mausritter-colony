@@ -1,24 +1,39 @@
-# mausritter-colony
+# Welcome to Mausritter Colony 👋
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
+[![License: Mausritter Third Party Licence](https://img.shields.io/badge/License-Mausritter Third Party Licence-yellow.svg)](https://mausritter.com/third-party-licence/)
 
-## Project setup
-```
+> Mausritter Colony offers a very simple tool to manage your Mausritter game.You can count turns, see a summary of your players' mice and track dice rolls. Mausritter Colony is not intended to replace a Virtual Game Table.
+
+### 🏠 [Homepage](https://mausritter-colony.dco.ninja)
+
+## Install
+
+```sh
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Author
 
-### Compiles and minifies for production
-```
-yarn build
-```
+👤 **Daniel Coquette**
 
-### Lints and fixes files
-```
-yarn lint
-```
+* Github: [@yar0d](https://github.com/yar0d)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!
+
+Feel free to check [issues page](https://github.com/yar0d/mausritter-colony/issues). 
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+
+## 📝 License
+
+Copyright © 2021 [Daniel Coquette](https://github.com/yar0d).
+
+This project is [Mausritter Third Party Licence](https://mausritter.com/third-party-licence/) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
