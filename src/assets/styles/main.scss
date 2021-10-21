@@ -39,6 +39,7 @@ $card-content-padding: 0.5rem;
 $panel-heading-background-color: yellow !default;
 
 @import "~bulma/bulma";
+@import '~bulma-tooltip/src/sass/index.sass';
 
 html, body {
   overflow-y: auto !important;
@@ -121,9 +122,17 @@ html, body {
 }
 
 .application-background {
+  background-color: #eec;
+  // background-image: url('../img/cartographer.jpg');
+  // background-repeat: no-repeat;
+  // background-position: left top;
+  // background-size: 100%;
+}
+
+.table-background {
   background-image: url('../img/cartographer.jpg');
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: left top;
   background-size: cover;
 }
 
@@ -227,7 +236,6 @@ hr.history-separator {
 }
 
 .dice3d-canvas {
-  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 600px;
   position: absolute;

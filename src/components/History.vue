@@ -18,6 +18,7 @@
         </div>
         <div class="ml-2">
           {{ explain(line._json) }}
+          <span class="is-italic">{{ advantageText(line._json) }}</span>
         </div>
       </div>
       <hr class="history-separator" />
@@ -36,6 +37,11 @@ export default {
     locale () { return this.$store.getters['locale'] }
   },
   methods: {
+    advantageText (diceResult) {
+      if (diceResult.advantage === 'a') return this.$t('advantage')
+      if (diceResult.advantage === 'd') return this.$t('disadvantage')
+      return ''
+    },
     cls (roll) {
       if (roll.success) return 'px-2 has-background-success has-text-light'
       else if (roll.failed) return 'px-2 has-background-danger has-text-light'

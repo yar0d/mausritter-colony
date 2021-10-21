@@ -13,10 +13,12 @@
         <span v-show="locale !== lang">{{ $t(lang) }}</span>
       </button>
 
+      <a href="https://mausritter-sheet.dco.ninja" target="_blank">
+        Mausritter-Sheet
+      </a>
+
       <div class="is-flex is-flex-grow-1 is-justify-content-flex-end">
-        <a href="https://mausritter-sheet.dco.ninja" target="_blank">
-          Mausritter-Sheet
-        </a>
+        <img :src="require('@/assets/img/compatible-with-mausritter-88x32.png')" contain class="is-clickable" @click="showAbout = true" />
       </div>
     </div>
 
@@ -28,7 +30,7 @@
         </div>
 
         <div class="is-flex is-flex-direction-column">
-          <accordion>
+          <accordion class="table-background">
             <template slot="header">
               {{ $t('Table') }}
             </template>
@@ -37,33 +39,36 @@
               <div class="p-2 has-text-weight-normal">
                 <p class="is-size-5 has-text-weight-bold">{{ $t('Welcome') }}</p>
 
-                <div class="notification">
-                  Pour commencer à jouer, c'est simple :
-                  <div>{{ $t('Share this table ID with your players:') }}
-                    <span class="is-family-monospace has-text-weight-bold is-size-6 is-clickable ml-1" @click="copyToClipboard">
-                      {{ vtable }}
-                      <mc-icon is-button icon="copy" class="ml-1" />
-                    </span>
-                    <div v-show="showNotif" class="notification is-info is-light">
-                      <button class="delete" @click="showNotif = false" />
-                      {{ $t('{name} is now copied to clipboard.', { name: vtable }) }}
-                    </div>
-                  </div>
-
-                  <p>Mausritter-Colony n'enregistre aucune donnée privée. Ces données seront effacées si tu n'en sers pas pendant 31 jours.</p>
-
-                  <ul class="title">
-                    <li>AJOUTER LES DÉS en 3D</li>
-                    <li>ABOUT et LICENCE</li>
-                    <li>Afficher les hexagones de la colonies ?</li>
-                    <li>Noter dans localstorage le time stamp du plus récent history reçu.</li>
-                  </ul>
+                <div class="notification background-white-50">
+                  <p>{{ $t('Mausritter-Colony is a very simple tool that will help you, the GM, to manage a Mausritter adventure. All unused data older than 3 months will be deleted.') }}</p>
+                  <p>{{ $t('Mausritter-Colony is not a virtual tabletop. You will have to manually refresh the mice list and the dices history.') }}</p>
+                  <p class="mt-2">
+                    <span class="subtitle">{{ $t('To begin to play:') }}</span>
+                    <ol>
+                      <li>
+                        {{ $t('Tell your player to create/load their mouse on') }} <a target="mausritter-sheet" href="https://mausritter-sheet.dco.ninja/">Mausritter Sheet</a>. {{ $t('At the top of the sheet, a table ID can be input.') }}
+                        <img :src="require('@/assets/img/table-id-input.png')" contain />
+                      </li>
+                      <li>
+                        <div>{{ $t('Share this table ID with your players:') }}
+                          <span class="is-family-monospace has-text-weight-bold is-size-5 is-clickable ml-1" @click="copyToClipboard" :data-tooltip="$t('Click to copy to clipboard')">
+                            {{ vtable }}
+                            <mc-icon is-button icon="copy" class="ml-1" />
+                          </span>
+                          <div v-show="showNotifications" class="notification is-info is-light">
+                            <button class="delete" @click="showNotifications = false" />
+                            {{ $t('{name} is now copied to clipboard.', { name: vtable }) }}
+                          </div>
+                        </div>
+                      </li>
+                    </ol>
+                  </p>
                 </div>
               </div>
             </div>
           </accordion>
 
-          <accordion>
+          <accordion class="table-background">
             <template slot="header">
               {{ $t('Turn tracker') }}
             </template>
@@ -73,8 +78,8 @@
             </template>
 
             <div slot="content" class="m-1">
-              <div v-show="showNotif" class="notification is-info is-light">
-                <button class="delete" @click="showNotif = false" />
+              <div v-show="showNotifications" class="notification is-info is-light">
+                <button class="delete" @click="showNotifications = false" />
                 {{ $t('{name} is now copied to clipboard.', { name: vtable }) }}
               </div>
 
@@ -83,7 +88,7 @@
               </div>
 
               <transition name="fade">
-                <div v-show="showHelp" class="m-2 mt-4 notification">
+                <div v-show="showHelp" class="m-2 mt-4 notification background-white-50">
                   <button class="delete" @click="showHelp = false" />
                   <p >{{ $t('Click on a box to change its content.') }}</p>
                   <p class="is-align-items-center is-flex">
@@ -115,7 +120,7 @@
             </div>
           </accordion>
 
-          <accordion>
+          <accordion class="table-background">
             <template slot="header">
               {{ $t('Mice') }} <span class="ml-2 tag is-rounded is-dark">{{ sheets.length }}</span>
             </template>
@@ -130,7 +135,7 @@
                   {{ $t('No player is connected. Refresh this panel or wait a moment.') }}
                 </div>
                 <div v-else v-for="(sheet, index) in sheets" :key="index" class="p-2">
-                  <sheet :dex="sheet.dex" :dex_max="sheet.dex_max" :hp="sheet.hp" :hp_max="sheet.hp_max" :last-update="sheet.updated" :name="sheet.name" :str="sheet.str"  :str_max="sheet.str_max" :wil="sheet.wil" :wil_max="sheet.wil_max" @remove="removeSheet" />
+                  <sheet :level="sheet.level" :dex="sheet.dex" :dex_max="sheet.dex_max" :hp="sheet.hp" :hp_max="sheet.hp_max" :last-update="sheet.updated" :name="sheet.name" :str="sheet.str"  :str_max="sheet.str_max" :wil="sheet.wil" :wil_max="sheet.wil_max" @remove="removeSheet" />
                 </div>
               </div>
             </div>
@@ -152,14 +157,11 @@
           </div>
 
           <div class="notification panel-block">
-            <div v-for="dice in DICE_FACES" :key="dice" class="mx-4">
-              <dice :faces="dice" :advantage="diceAdvantage" :height="32" @rolled="diceRolled" />
+            {{ $t('Roll dice') }}
+            <div v-for="dice in DICE_FACES" :key="dice" class="mx-4 is-clickable">
+              <dice :faces="dice" :advantage="diceAdvantage" :height="32" @rolled="diceRolled" color="blue" />
             </div>
           </div>
-
-          <!-- <div class="panel">
-            <div id="dice-canvas" class="dice3d-canvas" />
-          </div> -->
         </div>
 
         <div class="panel">
@@ -174,6 +176,8 @@
         </div>
       </div>
     </div>
+
+    <about :show="showAbout" />
   </div>
 </template>
 
@@ -188,12 +192,13 @@ import Sheet from './components/Sheet.vue'
 import Tracker from './components/Tracker.vue'
 import History from './components/History.vue'
 import Accordion from './components/Accordion.vue'
+import About from './components/About.vue'
 
 const DICE_FACES = [4, 6, 8, 10, 12, 20]
 
 export default {
   name: 'App',
-  components: { Sheet, Tracker, History, Accordion, Dice },
+  components: { About, Sheet, Tracker, History, Accordion, Dice },
   data () {
     return {
       DEFAULT_LOCALE,
@@ -205,8 +210,9 @@ export default {
       isLoadingHistory: false,
       isLoadingMice: false,
       locale: null,
+      showAbout: false,
       showHelp: true,
-      showNotif: false,
+      showNotifications: false,
       window
     }
   },
@@ -226,8 +232,8 @@ export default {
     },
     async copyToClipboard () {
       await copyToClipboard(this.vtable)
-      this.showNotif = true
-      setTimeout(() => { this.showNotif = false }, 5000)
+      this.showNotifications = true
+      setTimeout(() => { this.showNotifications = false }, 5000)
     },
     async diceRolled (diceResult) {
       await this.$store.dispatch('sendDiceResult', { vTable: this.vtable, diceResult })

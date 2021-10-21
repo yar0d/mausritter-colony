@@ -28,6 +28,7 @@
   "Mad": "Mad",
   "Encumbered": "Encumbered",
   "Help": "Help",
+  "Close": "Close",
   "Welcome": "Welcome",
   "{name} is now copied to clipboard.": "{name} is now copied to clipboard.",
   "Share this table ID with your players:": "Share this table ID with your players:",
@@ -41,5 +42,19 @@
   "No player is connected. Refresh this panel or wait a moment.": "No player is connected. Refresh this panel or wait a moment.",
   "Remove from table": "Remove from table",
   "A turn walking.": "A turn walking.",
-  "A turn to rest and eat.": "A turn to rest and eat."
+  "A turn to rest and eat.": "A turn to rest and eat.",
+  "Mausritter-Colony is a very simple tool that will help you, the GM, to manage a Mausritter adventure. All unused data older than 3 months will be deleted.": "Mausritter-Colony is a very simple tool that will help you, the GM, to manage a Mausritter adventure. All unused data older than 3 months will be deleted.",
+  "Mausritter-Colony is not a virtual tabletop. You will have to manually refresh the mice list and the dices history.": "Mausritter-Colony is not a virtual tabletop. You will have to manually refresh the mice list and the dices history.",
+  "Click to copy to clipboard": "Click to copy to clipboard",
+  "Last update:": "Last update:",
+  "To begin to play:": "To begin to play:",
+  "Tell your player to create/load their mouse on": "Tell your player to create/load their mouse on",
+  "At the top of the sheet, a table ID can be input.": "At the top of the sheet, a table ID can be input.",
+  "Roll dice": "Roll dice",
+  "Level": "Level",
+  "This application is an independent production by Daniel Coquette and is not affiliated with Losing Games. It is published under the Mausritter Third Party Licence.": "This application is an independent production by Daniel Coquette and is not affiliated with Losing Games. It is published under the Mausritter Third Party Licence.",
+  "Mausritter is copyright Losing Games.": "Mausritter is copyright Losing Games.",
+  "This application is copyright Daniel Coquette.": "This application is copyright Daniel Coquette.",
+  "3D dices from Anton Natarov": "3D dices from Anton Natarov",
+  "GM": "GM"
 }

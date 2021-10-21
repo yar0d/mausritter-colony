@@ -6,6 +6,8 @@
 
 ### 🏠 [Homepage](https://mausritter-colony.dco.ninja)
 
+![Mausritter-Colony](./mausritter-colony-01.jpg)
+
 ## Install
 
 ```sh
