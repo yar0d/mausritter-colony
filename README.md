@@ -1,6 +1,6 @@
 # Welcome to Mausritter Colony 👋
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
-[![License: Mausritter Third Party Licence](https://img.shields.io/badge/License-Mausritter Third Party Licence-yellow.svg)](https://mausritter.com/third-party-licence/)
+[![License Mausritter Third Party Licence](https://img.shields.io/badge/License-Mausritter%20Third%20Party%20Licence-yellow.svg)](https://mausritter.com/third-party-licence/)
 
 > Mausritter Colony offers a very simple tool to manage your Mausritter game.You can count turns, see a summary of your players' mice and track dice rolls. Mausritter Colony is not intended to replace a Virtual Game Table.
 
