@@ -4,6 +4,8 @@
 
 > Mausritter Colony offers a very simple tool to manage your Mausritter game.You can count turns, see a summary of your players' mice and track dice rolls. Mausritter Colony is not intended to replace a Virtual Game Table.
 
+**ALPHA VERSION**. It's a work in progress that's not ready to for daily use. — Stay tune ;-)
+
 ### 🏠 [Homepage](https://mausritter-colony.dco.ninja)
 
 ![Mausritter-Colony](./mausritter-colony-01.jpg)
