@@ -39,7 +39,7 @@
   "neutral": "neutral",
   "advantage": "advantage",
   "disadvantage": "disadvantage",
-  "No player is connected. Refresh this panel or wait a moment.": "No player is connected. Refresh this panel or wait a moment.",
+  "No player is connected. Refresh this panel with the double round arrows in its title.": "No player is connected. Refresh this panel with the double round arrows in its title.",
   "Remove from table": "Remove from table",
   "A turn walking.": "A turn walking.",
   "A turn to rest and eat.": "A turn to rest and eat.",

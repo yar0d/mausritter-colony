@@ -22,6 +22,7 @@ import fr_FR from '@iconify-icons/openmoji/flag-france'
 import help from '@iconify-icons/mdi/help-circle-outline'
 import light from '@iconify-icons/openmoji/candle'
 import menu from '@iconify-icons/ic/menu'
+import menuBack from '@iconify-icons/mdi/backburger'
 import mouseFace from '@iconify-icons/openmoji/mouse-face'
 import paws from '@iconify-icons/openmoji/paw-prints'
 import refresh from '@iconify-icons/ic/round-refresh'
@@ -52,6 +53,7 @@ export default {
   help,
   light,
   menu,
+  'menu-back': menuBack,
   'mouse-face': mouseFace,
   paws,
   refresh,

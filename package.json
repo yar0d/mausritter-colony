@@ -2,6 +2,7 @@
   "name": "mausritter-colony",
   "version": "0.1.0",
   "private": true,
+  "license" : "GPL-3.0",
   "scripts": {
     "serve": "vue-cli-service serve --port 8802",
     "serve:docker": "docker run -it -p 8765:8765 mausritter-sheet",

@@ -39,7 +39,7 @@
   "neutral": "neutre",
   "advantage": "avantage",
   "disadvantage": "désavantage",
-  "No player is connected. Refresh this panel or wait a moment.": "Aucun joueur n'est connecté. Actualisez le panneau ou attendez un instant.",
+  "No player is connected. Refresh this panel with the double round arrows in its title.": "Aucune souris n'est connectée. Actualisez le panneau avec les doubles flèches rondes dans son titre.",
   "Remove from table": "Supprimer de cette table",
   "A turn walking.": "Un tour à marcher.",
   "A turn to rest and eat.": "Un tour de repos.",

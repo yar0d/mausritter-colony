@@ -17,6 +17,9 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
+                <div class="has-text-right">
+                  <mc-icon icon="menu-back" class="is-clickable" height="24" @click="deleteMenu = false" />
+                </div>
                 <a href="#" class="dropdown-item" @click="remove">
                   {{ $t('Remove from table') }}
                 </a>
@@ -40,6 +43,7 @@
         </table>
       </div>
 
+      <!-- FUTURE: keep some states
       <div class="content is-flex is-justify-content-space-between">
         <label class="checkbox">
           {{ $t('Injured') }}
@@ -53,7 +57,7 @@
           {{ $t('Encumbered') }}
           <input type="checkbox">
         </label>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

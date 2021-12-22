@@ -6,6 +6,7 @@
       <img max-height="32px" src="/img/logo.png">
       <div class="is-size-3 has-text-weight-bold mr-2">
         Mausritter-Colony
+        <span class="px-2 has-background-danger has-text-white">BETA</span>
       </div>
 
       <button v-for="lang in LOCALES" :key="lang" class="button is-small mr-2" :class="locale === lang ? 'is-primary' : ''" @click="changeLocale(lang)">
@@ -88,28 +89,33 @@
               </div>
 
               <transition name="fade">
-                <div v-show="showHelp" class="m-2 mt-4 notification background-white-50">
+                <div v-show="showHelp" class="m-2 mt-4 notification background-white-50 is-flex is-flex-wrap-wrap">
                   <button class="delete" @click="showHelp = false" />
-                  <p >{{ $t('Click on a box to change its content.') }}</p>
-                  <p class="is-align-items-center is-flex">
-                    <mc-icon icon="light" height="20" class="mr-1" />
-                    {{ $t('A turn using lighting with a torch or a lantern.') }}
-                  </p>
-                  <p class="is-align-items-center is-flex">
-                    <mc-icon icon="paws" height="20" class="mr-1" />
-                    {{ $t('A turn walking.') }}
-                  </p>
-                  <p class="is-align-items-center is-flex">
-                    <mc-icon icon="food" height="20" class="mr-1" />
-                    {{ $t('A turn to rest and eat.') }}
-                  </p>
-                  <div class="mt-4">
+
+                  <div>
+                    <p >{{ $t('Click on a box to change its content.') }}</p>
+                    <p class="is-align-items-center is-flex">
+                      <mc-icon icon="light" height="20" class="mr-1" />
+                      {{ $t('A turn using lighting with a torch or a lantern.') }}
+                    </p>
+                    <p class="is-align-items-center is-flex">
+                      <mc-icon icon="paws" height="20" class="mr-1" />
+                      {{ $t('A turn walking.') }}
+                    </p>
+                    <p class="is-align-items-center is-flex">
+                      <mc-icon icon="food" height="20" class="mr-1" />
+                      {{ $t('A turn to rest and eat.') }}
+                    </p>
+                  </div>
+
+                  <div class="mx-4">
                     {{ $t('In a dungeon, roll d6 for encounter every three turns.') }}
                     <p>
                       {{ $t('1: Encounter, 2: Omen of encounter. Roll for type.') }}
                     </p>
                   </div>
-                  <div class="mt-4">
+
+                  <div>
                     {{ $t('In the wilderness, roll d6 for encounter at Sunrise and Sunset.') }}
                     <p>
                       {{ $t('If an encounter or omen is rolled, roll d12 to find the hour.') }}
@@ -132,7 +138,7 @@
             <div slot="content">
               <div class="is-flex is-flex-wrap-wrap">
                 <div v-if="sheets.length === 0" class="is-size-4 has-text-weight-bold m-4">
-                  {{ $t('No player is connected. Refresh this panel or wait a moment.') }}
+                  {{ $t('No player is connected. Refresh this panel with the double round arrows in its title.') }}
                 </div>
                 <div v-else v-for="(sheet, index) in sheets" :key="index" class="p-2">
                   <sheet :level="sheet.level" :dex="sheet.dex" :dex_max="sheet.dex_max" :hp="sheet.hp" :hp_max="sheet.hp_max" :last-update="sheet.updated" :name="sheet.name" :str="sheet.str"  :str_max="sheet.str_max" :wil="sheet.wil" :wil_max="sheet.wil_max" @remove="removeSheet" />
