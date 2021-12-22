@@ -173,6 +173,7 @@
         <div class="panel">
           <div class="panel-heading is-flex is-flex-direction-row is-justify-content-space-between">
             {{ $t('History') }}
+            <mc-icon v-if="vtable" is-button icon="trash" height="24" @click="clearHistory" />
             <mc-icon v-if="vtable" is-button icon="refresh" height="24" :class="isLoadingHistory ? 'rotate' : ''" @click="refreshHistory" />
           </div>
 
@@ -235,6 +236,16 @@ export default {
       this.$i18n.locale = this.locale
       this.$store.dispatch('changeLocale', this.locale)
       saveLocale(this.locale)
+    },
+    async clearHistory () {
+      if (!this.vtable) return
+      this.isLoadingHistory = true
+      try {
+        await this.$store.dispatch('history/clear', this.vtable)
+        this.refreshHistory()
+      } catch (error) {
+        this.error = JSON.stringify(error, undefined, 2)
+      }
     },
     async copyToClipboard () {
       await copyToClipboard(this.vtable)

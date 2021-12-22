@@ -2,7 +2,7 @@
 error_reporting(E_ALL & ~E_NOTICE); // DEBUG
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
 
 $vtable = $_REQUEST["vtable"];
@@ -19,6 +19,21 @@ $_CORE->load("dices");
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   header("Content-Type: application/json;charset=UTF-8");
   echo json_encode($_CORE->dices->getAll($vtable));
+}
+
+// DELETE /dices.php?vtable=<vtable>
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+  header("Content-Type: application/json;charset=UTF-8");
+  $OK = $_CORE->dices->delAll($vtable) ? "OK" : $_CORE->error;
+  if (!$OK) {
+    header("HTTP/1.1 500 Internal error");
+    header("Content-Type: application/json;charset=UTF-8");
+    echo $_CORE->errorAsJson();
+  } else {
+    header('HTTP/1.1 200 OK');
+    header("Content-Type: application/json;charset=UTF-8");
+    echo $_CORE->successAsJson($OK);
+  }
 }
 
 // POST /dices.php?vtable=<vtable>&sheet=<sheet>

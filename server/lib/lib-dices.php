@@ -34,4 +34,11 @@ class Dices {
       [$timestamp]
     );
   }
+
+  function delAll ($vtable) {
+    return $this->core->exec(
+      "DELETE FROM `dices` WHERE `vtable`=?",
+      [$vtable]
+    );
+  }
 }

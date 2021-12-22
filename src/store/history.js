@@ -9,6 +9,15 @@ export default {
     list: state => { return state.list || [] }
   },
   actions: {
+    clear ({ commit, rootState }, tableId) {
+      return Vue.http.delete(`${rootState.config.SERVER_API_URL}/dices.php?vtable=${tableId}`)
+        .then((response) => {
+          return response
+        })
+        .catch((error) => {
+          commit('API_FAILURE', error)
+        })
+    },
     list ({ commit, rootState }, tableId) {
       return Vue.http.get(`${rootState.config.SERVER_API_URL}/dices.php?vtable=${tableId}`)
         .then((response) => {
