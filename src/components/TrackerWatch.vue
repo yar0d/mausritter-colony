@@ -4,10 +4,10 @@
       <div>
         <table class="tracker">
           <thead v-if="title">
-            <tr class="is-size-6 has-text-centered">
+            <tr class="is-size-5 has-text-centered">
               <th :colspan="canClear ? 5 : 6">{{ title }}</th>
               <th v-show="canClear" colspan="1">
-                <mc-icon is-button icon="clear" height="24" @click="clearTracker" />
+                <mc-icon is-button icon="trash" height="24" @click="clearTracker" />
               </th>
             </tr>
           </thead>

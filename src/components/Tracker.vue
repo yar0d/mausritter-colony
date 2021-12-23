@@ -35,13 +35,31 @@ export default {
     },
     onClear (watchName) {
       this[watchName] = this.newWatch()
+      this.$store.dispatch('vtable/update', { data: this.serialize() })
     },
     onChange (watchName, { y, x }) {
       const tmp = [...this[watchName]]
       if (tmp[y][x] >= TURN_TRACKER_LAST) tmp[y][x] = 0
       else tmp[y][x]++
+      this.$store.dispatch('vtable/update', { data: this.serialize() })
       // Force refreshing watch turn table
-      this[watchName] = [...tmp]
+      this.set({
+        [watchName]: [...tmp]
+      })
+    },
+    serialize () {
+      return {
+        afternoon: this.afternoon,
+        evening: this.evening,
+        morning: this.morning,
+        night: this.night
+      }
+    },
+    set (data) {
+      if (data.afternoon) this.afternoon = [...data.afternoon]
+      if (data.evening) this.evening = [...data.evening]
+      if (data.morning) this.morning = [...data.morning]
+      if (data.night) this.night = [...data.night]
     }
   }
 }

@@ -41,29 +41,30 @@
                 <p class="is-size-5 has-text-weight-bold">{{ $t('Welcome') }}</p>
 
                 <div class="notification background-white-50">
-                  <p>{{ $t('Mausritter-Colony is a very simple tool that will help you, the GM, to manage a Mausritter adventure. All unused data older than 3 months will be deleted.') }}</p>
-                  <p>{{ $t('Mausritter-Colony is not a virtual tabletop. You will have to manually refresh the mice list and the dices history.') }}</p>
-                  <p class="mt-2">
+                  <p>{{ $t('Mausritter-Colony is a very simple tool that will help you, the GM, to manage a Mausritter adventure. All data older than 3 months will be deleted.') }}</p>
+                  <p class="has-text-weight-bold">{{ $t('Mausritter-Colony is not a virtual tabletop. You will have to manually refresh the mice list and the dices history.') }}</p>
+
+                  <div class="mt-2">
+                    <hr>
                     <span class="subtitle">{{ $t('To begin to play:') }}</span>
-                    <ol>
-                      <li>
-                        {{ $t('Tell your player to create/load their mouse on') }} <a target="mausritter-sheet" href="https://mausritter-sheet.dco.ninja/">Mausritter Sheet</a>. {{ $t('At the top of the sheet, a table ID can be input.') }}
-                        <img :src="require('@/assets/img/table-id-input.png')" contain />
-                      </li>
-                      <li>
-                        <div>{{ $t('Share this table ID with your players:') }}
-                          <span class="is-family-monospace has-text-weight-bold is-size-5 is-clickable ml-1" @click="copyToClipboard" :data-tooltip="$t('Click to copy to clipboard')">
-                            {{ vtable }}
-                            <mc-icon is-button icon="copy" class="ml-1" />
-                          </span>
-                          <div v-show="showNotifications" class="notification is-info is-light">
-                            <button class="delete" @click="showNotifications = false" />
-                            {{ $t('{name} is now copied to clipboard.', { name: vtable }) }}
-                          </div>
-                        </div>
-                      </li>
-                    </ol>
-                  </p>
+                    <div>
+                      <span class="subtitle">1 <mc-icon icon="arrow-right" /></span>
+                      {{ $t('Tell your player to create/load their mouse on') }} <a target="mausritter-sheet" href="https://mausritter-sheet.dco.ninja/">Mausritter Sheet</a>. {{ $t('At the top of the sheet, a table ID can be input.') }}
+                      <img class="ml-4" :src="require('@/assets/img/table-id-input.png')" contain />
+                    </div>
+                    <div>
+                      <span class="subtitle">2 <mc-icon icon="arrow-right" /></span>
+                      {{ $t('Share this table ID with your players:') }}
+                      <span class="is-family-monospace has-text-weight-bold is-size-5 is-clickable ml-1" @click="copyToClipboard" :data-tooltip="$t('Click to copy to clipboard')">
+                        {{ vtable }}
+                        <mc-icon is-button icon="copy" class="ml-1" />
+                      </span>
+                      <div v-show="showNotifications" class="notification is-info is-light">
+                        <button class="delete" @click="showNotifications = false" />
+                        {{ $t('{name} is now copied to clipboard.', { name: vtable }) }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,7 +90,7 @@
               </div>
 
               <transition name="fade">
-                <div v-show="showHelp" class="m-2 mt-4 notification background-white-50 is-flex is-flex-wrap-wrap">
+                <div v-if="showHelp" class="m-2 mt-4 notification background-white-50 is-flex is-flex-wrap-wrap">
                   <button class="delete" @click="showHelp = false" />
 
                   <div>
@@ -136,9 +137,10 @@
             </template>
 
             <div slot="content">
-              <div class="is-flex is-flex-wrap-wrap">
-                <div v-if="sheets.length === 0" class="is-size-4 has-text-weight-bold m-4">
-                  {{ $t('No player is connected. Refresh this panel with the double round arrows in its title.') }}
+              <div v-if="vtable" class="is-flex is-flex-wrap-wrap">
+                <div v-if="sheets.length === 0" class="is-size-5 has-text-weight-bold m-4">
+                  {{ $t('No player is connected. Refresh this panel with the double round arrows in its title:') }}
+                  <mc-icon is-button icon="refresh" height="24" @click="refreshMice" />
                 </div>
                 <div v-else v-for="(sheet, index) in sheets" :key="index" class="p-2">
                   <sheet :level="sheet.level" :dex="sheet.dex" :dex_max="sheet.dex_max" :hp="sheet.hp" :hp_max="sheet.hp_max" :last-update="sheet.updated" :name="sheet.name" :str="sheet.str"  :str_max="sheet.str_max" :wil="sheet.wil" :wil_max="sheet.wil_max" @remove="removeSheet" />
@@ -162,9 +164,9 @@
             </div>
           </div>
 
-          <div class="notification panel-block">
+          <div class="notification panel-block dices-launcher">
             {{ $t('Roll dice') }}
-            <div v-for="dice in DICE_FACES" :key="dice" class="mx-4 is-clickable">
+            <div v-for="dice in DICE_FACES" :key="dice" class="mx-4 is-clickable dice">
               <dice :faces="dice" :advantage="diceAdvantage" :height="32" @rolled="diceRolled" color="blue" />
             </div>
           </div>
@@ -177,8 +179,12 @@
             <mc-icon v-if="vtable" is-button icon="refresh" height="24" :class="isLoadingHistory ? 'rotate' : ''" @click="refreshHistory" />
           </div>
 
-          <div class="panel-block">
+          <div v-if="vtable" class="panel-block">
             <history v-if="history.length" :value="history" />
+            <div v-else class="is-size-5 has-text-weight-bold m-4">
+              {{ $t('No roll. Roll a die or update the history by clicking on the double round arrows in its title:') }}
+              <mc-icon is-button icon="refresh" height="24" @click="refreshHistory" />
+            </div>
           </div>
         </div>
       </div>
@@ -280,6 +286,11 @@ export default {
       if (!this.vtable) return
       await this.$store.dispatch('sheets/remove', { tableId: this.vtable, name })
       this.refreshMice()
+    },
+    serialize () {
+      return {
+        turns: this.$refs['turn-tracker'].serialize()
+      }
     }
   },
   created () {
@@ -292,7 +303,15 @@ export default {
   async mounted () {
     this.changeLocale(loadLocale())
 
-    dices3D.initialize('dice-canvas', 400, { debug: true })
+    dices3D.initialize('dice-canvas', 400, { debug: false })
+
+    await this.$store.dispatch('vtable/get', this.vtable)
+    if (this.$store.getters['vtable/current'] === false) {
+      console.log('Creating table data')
+      await this.$store.dispatch('vtable/create', { tableId: this.vtable, data: this.serialize() })
+    } else {
+      this.$refs['turn-tracker'].set(this.$store.getters['vtable/current'])
+    }
 
     // Prevent losing sheet if user clos the browser's tab
     // window.addEventListener("beforeunload", e => {

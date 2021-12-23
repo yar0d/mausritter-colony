@@ -1,5 +1,5 @@
 <template>
-  <iconify-icon v-bind="$attrs" v-on="$listeners" :icon="icons[icon]" :class="isButton ? 'is-clickable' : ''" />
+  <iconify-icon v-bind="$attrs" v-on="$listeners" :icon="icons[icon]" :class="isButton ? 'icon-middle is-clickable' : 'icon-middle'" />
 </template>
 
 <script>

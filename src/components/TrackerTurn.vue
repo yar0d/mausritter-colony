@@ -1,5 +1,5 @@
 <template>
-  <mc-icon v-show="innerValue" :icon="trackerTurnIcon(innerValue)" height="24" />
+  <mc-icon v-show="innerValue" :icon="trackerTurnIcon(innerValue)" :height="28" />
 </template>
 
 <script>

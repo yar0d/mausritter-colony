@@ -25,15 +25,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // - vtable: 'vtmc-8b06d7aa-5c13-411e-b0a8-a7abe7df84af'
 // - opened: 1
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $opened = $_REQUEST["opened"];
-  if (empty($opened)) {
-    header('HTTP/1.1 400 missing parameter opened');
+  // $opened = $_REQUEST["opened"];
+
+  // if (empty($opened)) {
+  //   header('HTTP/1.1 400 missing parameter opened');
+  //   exit();
+  // }
+
+  // Takes raw data from the request
+  $json = file_get_contents("php://input");
+  if (!isset($json)) {
+    $CORE->errorMissingValue("<body>");
     exit();
   }
 
+  $raw = json_decode($json, true);
+  if (!isset($raw['data'])) $data = "";
+  else $data = $raw['data'];
+
+
   header("Content-Type: application/json;charset=UTF-8");
   if (empty($_CORE->vtables->get($vtable)))
-    echo $_CORE->vtables->add($vtable, $opened) ? "OK" : $_CORE->error;
+    echo $_CORE->vtables->add($vtable, $data) ? $data : $_CORE->error;
     else
-    echo $_CORE->vtables->edit($vtable, $opened) ? "OK" : $_CORE->error;
+    echo $_CORE->vtables->edit($vtable, $data) ? $data : $_CORE->error;
 }
