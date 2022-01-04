@@ -14,7 +14,7 @@ export default {
     create ({ commit, state, rootState }, { tableId, data }) {
       return Vue.http.post(`${rootState.config.SERVER_API_URL}/vtables.php?vtable=${tableId}`, { data: JSON.stringify(data) })
         .then((response) => {
-          state.tableId = response?.body?.id
+          state.tableId = tableId
           commit('setCurrent', { data })
           return response
         })
@@ -25,7 +25,7 @@ export default {
     get ({ commit, state, rootState }, tableId) {
       return Vue.http.get(`${rootState.config.SERVER_API_URL}/vtables.php?vtable=${tableId}`)
         .then((response) => {
-          state.tableId = response?.body?.id
+          state.tableId = tableId
           commit('setCurrent', { data: response?.body?.data })
           return response
         })

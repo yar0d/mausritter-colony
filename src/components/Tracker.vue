@@ -56,6 +56,7 @@ export default {
       }
     },
     set (data) {
+      if (!data) return
       if (data.afternoon) this.afternoon = [...data.afternoon]
       if (data.evening) this.evening = [...data.evening]
       if (data.morning) this.morning = [...data.morning]
